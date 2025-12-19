@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>广播剧</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<h1 id="title">🎭 广播剧</h1>
+
+<a class="button" id="go">前往播放页面</a>
+
+<script src="./data.js"></script>
+<script>
+const drama = window.NFC_DATA.drama;
+document.getElementById("title").innerText = "🎭 " + drama.title;
+document.getElementById("go").onclick = () => {
+  location.href = drama.url;
+};
+</script>
+
+</body>
+</html>
