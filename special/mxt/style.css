@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fdf8f3;
+  color: #3a2e2a;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 48px 16px 80px;
+}
+
+/* 头部 */
+.header {
+  max-width: 640px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.header p {
+  font-size: 14px;
+  color: #7a5f55;
+  line-height: 1.8;
+}
+
+.surprise {
+  font-size: 13px;
+  color: #b08968;
+}
+
+/* 大播放键 */
+.big-play {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #e8c4a0;
+  color: #fff;
+  font-size: 30px;
+  line-height: 72px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(200, 150, 100, 0.35);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.big-play:active {
+  transform: scale(0.94);
+}
+
+/* 时间 */
+.time {
+  text-align: center;
+  font-size: 12px;
+  color: #a98467;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+/* 音频容器 */
+.audio-wrapper {
+  max-width: 360px;
+  margin: 0 auto 8px;
+}
+
+audio {
+  width: 100%;
+}
+
+/* 提示 */
+.hint {
+  text-align: center;
+  font-size: 12px;
+  color: #b08968;
+  margin-bottom: 48px;
+}
+
+/* 信息流 */
+.feed {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+/* 单条 */
+.post {
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.6s ease;
+}
+
+.post.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ID */
+.post-id {
+  font-size: 13px;
+  font-weight: 600;
+  color: #9a6b4f;
+  margin-bottom: 6px;
+}
+
+/* 文案 */
+.post-text {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* 图片 */
+.post img {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
+  box-shadow: 0 8px 24px rgba(160, 120, 90, 0.18);
+  margin-bottom: 10px;
+}
+
+/* 底部信息 */
+.post-meta {
+  font-size: 12px;
+  color: #8a6a5d;
+  display: flex;
+  gap: 16px;
+}
+
+/* footer */
+.footer {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 12px;
+  color: #c1a28f;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>毛线团的 i 穆留声机</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <div class="header">
+    <h1>毛线团的 i 穆留声机</h1>
+    <p>
+      曾经，我们都是你声音的朋友。<br>
+      现在，想用我们的声音，给你带来一些祝福。<br><br>
+      <span class="surprise">听完有惊喜噢~</span>
+    </p>
+  </div>
+
+  <!-- 大播放键 -->
+  <div id="bigPlay" class="big-play">▶</div>
+
+  <!-- 播放时间 -->
+  <div id="time" class="time">00:00 / 00:00</div>
+
+  <!-- 原生音频（不显示 controls） -->
+  <div class="audio-wrapper">
+    <audio id="audio" preload="auto">
+      <source src="./audio/test.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div id="hint" class="hint">
+  </div>
+  <!-- 信息流 -->
+  <div id="feed" class="feed hidden"></div>
+
+  <div class="footer">2026.01.01</div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
