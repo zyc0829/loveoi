@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>本周歌曲 · Love Oi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/ui.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <h1>🎵 本周歌曲</h1>
+    <p class="subtitle">因为有爱，所以聆听</p>
+  </header>
+
+  <div class="card">
+    <div id="song-title" class="title">加载中…</div>
+    <div id="song-artist" class="desc"></div>
+
+    <button id="playSong" class="btn primary">
+      打开网易云音乐
+    </button>
+  </div>
+
+  <nav class="nav">
+    <a href="./song.html" class="active">🎵 歌曲</a>
+    <a href="./audio.html">🎧 音频</a>
+    <a href="./broadcast.html">📻 广播剧</a>
+    <a href="../index.html">🏠 首页</a>
+  </nav>
+
+</div>
+
+<script>
+(async () => {
+  try {
+    const res = await fetch('http://loveoi.top:3000/api/content/week')
+    const data = await res.json()
+    const song = data.song
+
+    if (!song) {
+      document.getElementById('song-title').innerText = '本周暂无歌曲'
+      return
+    }
+
+    document.getElementById('song-title').innerText = song.title || '未命名歌曲'
+    document.getElementById('song-artist').innerText = song.artist || ''
+
+    document.getElementById('playSong').onclick = () => {
+      const deeplink = `orpheus://song/${song.songId}`
+      const web = `https://music.163.com/song?id=${song.songId}`
+
+      location.href = deeplink
+      setTimeout(() => location.href = web, 1200)
+    }
+  } catch (e) {
+    document.getElementById('song-title').innerText = '加载失败'
+    console.error(e)
+  }
+})()
+</script>
+
+</body>
+</html>

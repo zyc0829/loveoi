@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>本周音频 · Love Oi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/ui.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <h1>🎧 本周音频</h1>
+    <p class="subtitle">群友精选</p>
+  </header>
+
+  <div class="card">
+    <div id="audio-title" class="title">加载中…</div>
+
+    <audio id="player" controls style="width:100%;margin-top:18px"></audio>
+  </div>
+
+  <nav class="nav">
+    <a href="./song.html">🎵 歌曲</a>
+    <a href="./audio.html" class="active">🎧 音频</a>
+    <a href="./broadcast.html">📻 广播剧</a>
+    <a href="../index.html">🏠 首页</a>
+  </nav>
+
+</div>
+
+<script>
+(async () => {
+  try {
+    const res = await fetch('http://loveoi.top:3000/api/content/week')
+    const data = await res.json()
+    const audio = data.audio
+
+    if (!audio) {
+      document.getElementById('audio-title').innerText = '本周暂无音频'
+      return
+    }
+
+    document.getElementById('audio-title').innerText = audio.title || '音频'
+    document.getElementById('player').src = audio.src
+  } catch (e) {
+    document.getElementById('audio-title').innerText = '加载失败'
+    console.error(e)
+  }
+})()
+</script>
+
+</body>
+</html>

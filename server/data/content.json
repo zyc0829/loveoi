@@ -1,0 +1,20 @@
+{
+  "song": {
+    "enable": true,
+    "id": "2688168732",
+    "title": "帮我拍拍",
+    "artist": "拍拍宇宙"
+  },
+
+  "audio": {
+    "enable": true,
+    "title": "第一周特别音频",
+    "src": "/audio/week1.mp3"
+  },
+
+  "broadcast": {
+    "enable": true,
+    "title": "飘飘",
+    "src": "https://s.rela.me/c/1SqTNu?album_id=111373&audio_id=116711"
+  }
+}

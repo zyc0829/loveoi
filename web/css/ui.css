@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #fff, #f6f7fb);
+  color: #222;
+}
+
+.page {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 28px 20px 16px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #888;
+}
+
+.card {
+  margin: 16px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+  text-align: center;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #ff5b8c;
+  color: #fff;
+}
+
+.btn.primary:active {
+  opacity: .85;
+}
+
+.nav {
+  margin-top: auto;
+  display: flex;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.nav a {
+  flex: 1;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+}
+
+.nav a.active {
+  color: #ff5b8c;
+  font-weight: 600;
+}

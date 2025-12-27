@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>因为有爱，所以聆听 oi</title>
-<link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8">
+  <title>Love Oi · 本周聆听</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/ui.css">
 </head>
-
 <body>
 
-<h1>因为有爱，所以聆听 oi</h1>
+<div class="page">
 
-<a class="button" href="./song.html">🎵 听歌</a>
-<a class="button" href="./audio.html">🎧 音频</a>
-<a class="button secondary" href="./drama.html">🎭 广播剧</a>
+  <header class="header">
+    <h1>Love Oi</h1>
+    <p class="subtitle">因为有爱，所以聆听</p>
+  </header>
+
+  <div class="card">
+    <div class="title">🎵 本周歌曲</div>
+    <div class="desc">打开网易云，听这一周的心动</div>
+    <button class="btn primary entry-btn" onclick="location.href='./pages/song.html'">
+      进入
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="title">🎧 音频内容</div>
+    <div class="desc">群友精选音频</div>
+    <button class="btn primary entry-btn" onclick="location.href='./pages/audio.html'">
+      进入
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="title">📻 广播剧</div>
+    <div class="desc">广播剧推荐</div>
+    <button class="btn primary entry-btn" onclick="location.href='./pages/broadcast.html'">
+      进入
+    </button>
+  </div>
+
+</div>
 
 </body>
 </html>

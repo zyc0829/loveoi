@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>广播剧 · Love Oi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/ui.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <h1>📻 广播剧</h1>
+    <p class="subtitle">广播剧推荐</p>
+  </header>
+
+  <div class="card">
+    <div id="bc-title" class="title">加载中…</div>
+    <div id="bc-ep" class="desc"></div>
+
+    <button id="openBc" class="btn primary">
+      打开广播剧
+    </button>
+  </div>
+
+  <nav class="nav">
+    <a href="./song.html">🎵 歌曲</a>
+    <a href="./audio.html">🎧 音频</a>
+    <a href="./broadcast.html" class="active">📻 广播剧</a>
+    <a href="../index.html">🏠 首页</a>
+  </nav>
+
+</div>
+
+<script>
+(async () => {
+  try {
+    const res = await fetch('http://loveoi.top:3000/api/content/week')
+    const data = await res.json()
+    const bc = data.broadcast
+
+    if (!bc) {
+      document.getElementById('bc-title').innerText = '本周暂无广播剧'
+      return
+    }
+
+    document.getElementById('bc-title').innerText = bc.title || '广播剧'
+    document.getElementById('bc-ep').innerText = bc.episode || ''
+
+    document.getElementById('openBc').onclick = () => {
+      location.href = bc.src
+    }
+  } catch (e) {
+    document.getElementById('bc-title').innerText = '加载失败'
+    console.error(e)
+  }
+})()
+</script>
+
+</body>
+</html>
