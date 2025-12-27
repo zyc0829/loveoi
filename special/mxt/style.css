@@ -20,19 +20,19 @@ body {
 }
 
 .header h1 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 500;
   margin-bottom: 16px;
 }
 
 .header p {
-  font-size: 14px;
+  font-size: 16px;
   color: #7a5f55;
   line-height: 1.8;
 }
 
 .surprise {
-  font-size: 13px;
+  font-size: 15px;
   color: #b08968;
 }
 
@@ -59,7 +59,7 @@ body {
 /* 时间 */
 .time {
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #a98467;
   margin-bottom: 8px;
   letter-spacing: 0.04em;
@@ -78,7 +78,7 @@ audio {
 /* 提示 */
 .hint {
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #b08968;
   margin-bottom: 48px;
 }
@@ -108,7 +108,7 @@ audio {
 
 /* ID */
 .post-id {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: #9a6b4f;
   margin-bottom: 6px;
@@ -116,7 +116,7 @@ audio {
 
 /* 文案 */
 .post-text {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
   margin-bottom: 12px;
 }
@@ -132,7 +132,7 @@ audio {
 
 /* 底部信息 */
 .post-meta {
-  font-size: 12px;
+  font-size: 14px;
   color: #8a6a5d;
   display: flex;
   gap: 16px;
@@ -142,6 +142,6 @@ audio {
 .footer {
   margin-top: 64px;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #c1a28f;
 }
