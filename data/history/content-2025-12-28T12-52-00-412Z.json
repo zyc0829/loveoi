@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "enable": false,
+    "title": "aaaa",
+    "src": "/audio/éºé¹¿åæ£®åæ¤°è.mp3"
+  },
+  "song": {
+    "enable": true,
+    "src": "",
+    "title": "12",
+    "artist": "123"
+  },
+  "broadcast": {
+    "enable": false,
+    "title": "2222",
+    "src": "2565",
+    "img": "/img/broadcast/qrcode.jpg"
+  }
+}

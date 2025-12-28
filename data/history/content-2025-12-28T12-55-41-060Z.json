@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "enable": true,
+    "title": "洗衣粉激情献唱《飘飘》",
+    "src": "/audio/æ´è¡£ç².m4a"
+  },
+  "song": {
+    "enable": true,
+    "src": " https://y.music.163.com/m/song?id=2688168732",
+    "title": "《帮我拍拍》",
+    "artist": "拍宇"
+  },
+  "broadcast": {
+    "enable": true,
+    "title": "飘飘",
+    "src": "https://s.rela.me/c/1SqTNu?album_id=111373&audio_id=116711",
+    "img": "/img/broadcast/é£é£.jpg"
+  }
+}

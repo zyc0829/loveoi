@@ -17,16 +17,13 @@
 
   <div class="card">
     <div id="bc-title" class="title">加载中…</div>
-    <div id="bc-ep" class="desc"></div>
-
-    <button id="openBc" class="btn primary">
-      打开广播剧
-    </button>
+    <img id="bc-img" style="width:100%;border-radius:12px;margin-top:12px;display:none">
+    <button id="openBc" class="btn primary">打开广播剧</button>
   </div>
 
   <nav class="nav">
-    <a href="./song.html">🎵 歌曲</a>
-    <a href="./audio.html">🎧 音频</a>
+    <a href="./song.html" id="nav-song">🎵 歌曲</a>
+    <a href="./audio.html" id="nav-audio">🎧 音频</a>
     <a href="./broadcast.html" class="active">📻 广播剧</a>
     <a href="../index.html">🏠 首页</a>
   </nav>
@@ -38,15 +35,24 @@
   try {
     const res = await fetch('http://loveoi.top:3000/api/content/week')
     const data = await res.json()
-    const bc = data.broadcast
 
-    if (!bc) {
+    if (!data.song?.enable) document.getElementById('nav-song').style.display = 'none'
+    if (!data.audio?.enable) document.getElementById('nav-audio').style.display = 'none'
+
+    const bc = data.broadcast
+    if (!bc?.enable) {
       document.getElementById('bc-title').innerText = '本周暂无广播剧'
+      document.getElementById('openBc').style.display = 'none'
       return
     }
 
     document.getElementById('bc-title').innerText = bc.title || '广播剧'
-    document.getElementById('bc-ep').innerText = bc.episode || ''
+
+    if (bc.img) {
+      const img = document.getElementById('bc-img')
+      img.src = bc.img
+      img.style.display = 'block'
+    }
 
     document.getElementById('openBc').onclick = () => {
       location.href = bc.src

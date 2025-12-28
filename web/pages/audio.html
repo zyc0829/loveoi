@@ -17,14 +17,13 @@
 
   <div class="card">
     <div id="audio-title" class="title">加载中…</div>
-
     <audio id="player" controls style="width:100%;margin-top:18px"></audio>
   </div>
 
   <nav class="nav">
-    <a href="./song.html">🎵 歌曲</a>
+    <a href="./song.html" id="nav-song">🎵 歌曲</a>
     <a href="./audio.html" class="active">🎧 音频</a>
-    <a href="./broadcast.html">📻 广播剧</a>
+    <a href="./broadcast.html" id="nav-broadcast">📻 广播剧</a>
     <a href="../index.html">🏠 首页</a>
   </nav>
 
@@ -35,10 +34,14 @@
   try {
     const res = await fetch('http://loveoi.top:3000/api/content/week')
     const data = await res.json()
-    const audio = data.audio
 
-    if (!audio) {
+    if (!data.song?.enable) document.getElementById('nav-song').style.display = 'none'
+    if (!data.broadcast?.enable) document.getElementById('nav-broadcast').style.display = 'none'
+
+    const audio = data.audio
+    if (!audio?.enable) {
       document.getElementById('audio-title').innerText = '本周暂无音频'
+      document.getElementById('player').style.display = 'none'
       return
     }
 

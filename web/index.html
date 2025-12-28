@@ -15,7 +15,7 @@
     <p class="subtitle">因为有爱，所以聆听</p>
   </header>
 
-  <div class="card">
+  <div class="card" id="card-song">
     <div class="title">🎵 本周歌曲</div>
     <div class="desc">打开网易云，听这一周的心动</div>
     <button class="btn primary entry-btn" onclick="location.href='./pages/song.html'">
@@ -23,7 +23,7 @@
     </button>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-audio">
     <div class="title">🎧 音频内容</div>
     <div class="desc">群友精选音频</div>
     <button class="btn primary entry-btn" onclick="location.href='./pages/audio.html'">
@@ -31,7 +31,7 @@
     </button>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-broadcast">
     <div class="title">📻 广播剧</div>
     <div class="desc">广播剧推荐</div>
     <button class="btn primary entry-btn" onclick="location.href='./pages/broadcast.html'">
@@ -40,6 +40,27 @@
   </div>
 
 </div>
+
+<script>
+(async () => {
+  try {
+    const res = await fetch('http://loveoi.top:3000/api/content/week')
+    const data = await res.json()
+
+    if (!data.song?.enable) {
+      document.getElementById('card-song').style.display = 'none'
+    }
+    if (!data.audio?.enable) {
+      document.getElementById('card-audio').style.display = 'none'
+    }
+    if (!data.broadcast?.enable) {
+      document.getElementById('card-broadcast').style.display = 'none'
+    }
+  } catch (e) {
+    console.error(e)
+  }
+})()
+</script>
 
 </body>
 </html>

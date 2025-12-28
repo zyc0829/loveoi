@@ -1,0 +1,19 @@
+{
+  "audio": {
+    "enable": true,
+    "title": "aaaa",
+    "src": "/audio/éºé¹¿åæ£®åæ¤°è.mp3"
+  },
+  "song": {
+    "enable": false,
+    "src": "",
+    "title": "",
+    "artist": ""
+  },
+  "broadcast": {
+    "enable": false,
+    "title": "",
+    "src": "",
+    "img": ""
+  }
+}

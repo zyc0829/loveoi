@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Oi · 管理后台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fafafa;
+      color: #222;
+    }
+    h1 { margin-top: 0; }
+    h2 { margin-top: 0; }
+
+    .hint {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    .row { margin-bottom: 12px; }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="url"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-right: 6px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      background: #e60026;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔐 Love Oi 管理后台</h1>
+<div id="version" class="hint">加载中…</div>
+
+<!-- 🎵 歌曲 -->
+<div class="card">
+  <h2>🎵 本周歌曲</h2>
+  <div class="row">
+    <label><input type="checkbox" id="song-enable"> 启用</label>
+  </div>
+  <div class="row">
+    <label>歌曲链接</label>
+    <input id="song-src" type="url">
+  </div>
+  <div class="row">
+    <label>标题</label>
+    <input id="song-title" type="text">
+  </div>
+  <div class="row">
+    <label>演唱</label>
+    <input id="song-artist" type="text">
+  </div>
+</div>
+
+<!-- 🎧 音频 -->
+<div class="card">
+  <h2>🎧 本周音频</h2>
+  <div class="row">
+    <label><input type="checkbox" id="audio-enable"> 启用</label>
+  </div>
+  <div class="row">
+    <label>标题</label>
+    <input id="audio-title" type="text">
+  </div>
+  <div class="row">
+    <label>上传 MP3</label>
+    <input id="audio-file" type="file" accept="audio/*">
+    <div id="audio-preview"></div>
+  </div>
+</div>
+
+<!-- 📻 广播剧 -->
+<div class="card">
+  <h2>📻 本周广播剧</h2>
+  <div class="row">
+    <label><input type="checkbox" id="broadcast-enable"> 启用</label>
+  </div>
+  <div class="row">
+    <label>广播剧链接</label>
+    <input id="broadcast-src" type="url">
+  </div>
+  <div class="row">
+    <label>标题</label>
+    <input id="broadcast-title" type="text">
+  </div>
+  <div class="row">
+    <label>上传海报</label>
+    <input id="broadcast-img" type="file" accept="image/*">
+    <div id="broadcast-preview"></div>
+  </div>
+</div>
+
+<button onclick="submitAll()">💾 保存本周内容</button>
+
+<script>
+const API = 'http://loveoi.top:3000'
+const TOKEN = 'lovoi-admin'
+
+// DOM 引用（一次性全部拿）
+const versionEl = document.getElementById('version')
+
+const songEnable = document.getElementById('song-enable')
+const songSrc = document.getElementById('song-src')
+const songTitle = document.getElementById('song-title')
+const songArtist = document.getElementById('song-artist')
+
+const audioEnable = document.getElementById('audio-enable')
+const audioTitle = document.getElementById('audio-title')
+const audioFile = document.getElementById('audio-file')
+const audioPreview = document.getElementById('audio-preview')
+
+const broadcastEnable = document.getElementById('broadcast-enable')
+const broadcastSrc = document.getElementById('broadcast-src')
+const broadcastTitle = document.getElementById('broadcast-title')
+const broadcastImg = document.getElementById('broadcast-img')
+const broadcastPreview = document.getElementById('broadcast-preview')
+
+let currentData = {}
+
+async function loadAdmin() {
+  try {
+    const res = await fetch(API + '/api/admin/content', {
+      headers: { Authorization: 'Bearer ' + TOKEN }
+    })
+    const json = await res.json()
+
+    versionEl.innerText =
+      '当前编辑版本：' + new Date(json.updatedAt).toLocaleString()
+
+    currentData = json.content || {}
+
+    const song = currentData.song || {}
+    const audio = currentData.audio || {}
+    const broadcast = currentData.broadcast || {}
+
+    songEnable.checked = !!song.enable
+    songSrc.value = song.src || ''
+    songTitle.value = song.title || ''
+    songArtist.value = song.artist || ''
+
+    audioEnable.checked = !!audio.enable
+    audioTitle.value = audio.title || ''
+
+    if (audio.src && audioPreview) {
+      audioPreview.innerHTML = `
+        <audio controls preload="none">
+          <source src="${audio.src}" type="audio/mpeg">
+        </audio>
+      `
+    } else {
+      audioPreview.innerHTML = ''
+    }
+
+    broadcastEnable.checked = !!broadcast.enable
+    broadcastSrc.value = broadcast.src || ''
+    broadcastTitle.value = broadcast.title || ''
+
+    if (broadcast.img && broadcastPreview) {
+      broadcastPreview.innerHTML = `<img src="${broadcast.img}">`
+    } else {
+      broadcastPreview.innerHTML = ''
+    }
+
+  } catch (e) {
+    console.error('❌ 管理页加载失败', e)
+    alert('管理页加载失败，请查看控制台')
+  }
+}
+
+async function uploadFile(file) {
+  const fd = new FormData()
+  fd.append('file', file)
+
+  const res = await fetch(API + '/api/admin/upload', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + TOKEN },
+    body: fd
+  })
+  return await res.json()
+}
+
+async function submitAll() {
+  try {
+    if (audioFile.files[0]) {
+      const r = await uploadFile(audioFile.files[0])
+      currentData.audio = currentData.audio || {}
+      currentData.audio.src = r.src
+    }
+
+    if (broadcastImg.files[0]) {
+      const r = await uploadFile(broadcastImg.files[0])
+      currentData.broadcast = currentData.broadcast || {}
+      currentData.broadcast.img = r.src
+    }
+
+    currentData.song = {
+      enable: songEnable.checked,
+      src: songSrc.value,
+      title: songTitle.value,
+      artist: songArtist.value
+    }
+
+    currentData.audio = {
+      enable: audioEnable.checked,
+      title: audioTitle.value,
+      src: currentData.audio?.src || ''
+    }
+
+    currentData.broadcast = {
+      enable: broadcastEnable.checked,
+      title: broadcastTitle.value,
+      src: broadcastSrc.value,
+      img: currentData.broadcast?.img || ''
+    }
+
+    await fetch(API + '/api/admin/content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + TOKEN
+      },
+      body: JSON.stringify(currentData)
+    })
+
+    alert('保存成功')
+    location.reload()
+  } catch (e) {
+    console.error('❌ 保存失败', e)
+    alert('保存失败，请查看控制台')
+  }
+}
+
+loadAdmin()
+</script>
+
+</body>
+</html>
