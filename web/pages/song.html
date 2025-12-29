@@ -18,13 +18,20 @@
   <div class="card">
     <div id="song-title" class="title">加载中…</div>
     <div id="song-artist" class="desc"></div>
-    <button id="openSong" class="btn primary">打开歌曲</button>
+
+    <button id="btn-app" class="btn primary">
+      打开网易云 App
+    </button>
+
+    <button id="btn-web" class="btn" style="margin-top:12px">
+      网页播放
+    </button>
   </div>
 
   <nav class="nav">
-    <a href="./song.html" class="active" id="nav-song">🎵 歌曲</a>
-    <a href="./audio.html" id="nav-audio">🎧 音频</a>
-    <a href="./broadcast.html" id="nav-broadcast">📻 广播剧</a>
+    <a href="./song.html" class="active">🎵 歌曲</a>
+    <a href="./audio.html">🎧 音频</a>
+    <a href="./broadcast.html">📻 广播剧</a>
     <a href="../index.html">🏠 首页</a>
   </nav>
 
@@ -35,23 +42,41 @@
   try {
     const res = await fetch('http://loveoi.top:3000/api/content/week')
     const data = await res.json()
-
-    // nav enable 控制
-    if (!data.audio?.enable) document.getElementById('nav-audio').style.display = 'none'
-    if (!data.broadcast?.enable) document.getElementById('nav-broadcast').style.display = 'none'
-
     const song = data.song
-    if (!song?.enable) {
-      document.getElementById('song-title').innerText = '本周歌曲未开启'
-      document.getElementById('openSong').style.display = 'none'
+
+    if (!song || !song.enable) {
+      document.getElementById('song-title').innerText = '本周暂无歌曲'
+      document.getElementById('btn-app').style.display = 'none'
+      document.getElementById('btn-web').style.display = 'none'
       return
     }
 
-    document.getElementById('song-title').innerText = song.title || '歌曲'
+    const src = (song.src || '').trim()
+
+    document.getElementById('song-title').innerText = song.title || '未命名歌曲'
     document.getElementById('song-artist').innerText = song.artist || ''
-    document.getElementById('openSong').onclick = () => {
-      location.href = song.src
+
+    // 👉 从 src 中解析网易云 song id
+    let songId = null
+    try {
+      const url = new URL(src)
+      songId = url.searchParams.get('id')
+    } catch (e) {}
+
+    // App Deeplink
+    document.getElementById('btn-app').onclick = () => {
+      if (!songId) {
+        alert('无法解析歌曲 ID')
+        return
+      }
+      location.href = `orpheus://song/${songId}`
     }
+
+    // 网页播放
+    document.getElementById('btn-web').onclick = () => {
+      location.href = src
+    }
+
   } catch (e) {
     document.getElementById('song-title').innerText = '加载失败'
     console.error(e)
